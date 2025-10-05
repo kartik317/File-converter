@@ -38,5 +38,9 @@
         <input type="hidden" name="filename" value="{{ filename }}">
         <button type="submit">Convert</button>
     </form>
+    <div id="loadingSpinner" style="display:none; margin-top:30px;">
+        <div class="spinner"></div>
+        <p>Preparing download...</p>
+    </div>
 </div>
 {% endblock %}
