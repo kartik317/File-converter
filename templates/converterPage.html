@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/converterstyles.css">
+{% endblock %}
+
+{% block title %}
+<title>Converter</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <p>File <strong>{{ filename }}</strong> uploaded successfully!</p>
+    <p>File extension: <strong>{{ file_extension }}</strong></p>
+    <form method="POST" action="/convert/{{ filename }}" enctype="multipart/form-data">
+        <label for="output_format">Select format to convert to:</label>
+        <select name="output_format" id="output_format" required>
+            {% if file_extension in ['png', 'jpg', 'jpeg', 'webp'] %}
+                <option value="png">PNG</option>
+                <option value="jpg">JPG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp">WEBP</option>
+            {% elif file_extension in ['mp4', 'mkv', 'avi', 'mov'] %}
+                <option value="mp4">MP4</option>
+                <option value="mkv">MKV</option>
+                <option value="avi">AVI</option>
+                <option value="mov">MOV</option>
+                <option value="mp3">MP3 (extract audio)</option>
+            {% elif file_extension in ['mp3', 'wav', 'ogg', 'm4a'] %}
+                <option value="mp3">MP3</option>
+                <option value="wav">WAV</option>
+                <option value="ogg">OGG</option>
+                <option value="m4a">M4A</option>
+            {% else %}
+                <option disabled>No conversion options available</option>
+            {% endif %}
+        </select>
+        <input type="hidden" name="filename" value="{{ filename }}">
+        <button type="submit">Convert</button>
+    </form>
+</div>
+{% endblock %}
